@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GameOfDrones.Core.Abstractions\GameOfDrones.Core.Abstractions.csproj" />
   </ItemGroup>
 
