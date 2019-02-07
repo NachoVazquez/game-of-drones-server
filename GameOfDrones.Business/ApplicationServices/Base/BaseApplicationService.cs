@@ -1,10 +1,10 @@
-﻿using System;
+﻿using GameOfDrones.Core.Abstractions.Business;
+using GameOfDrones.Core.Abstractions.DataAccess;
+using GameOfDrones.Core.Domain.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GameOfDrones.Core.Abstractions.Business;
-using GameOfDrones.Core.Abstractions.DataAccess;
-using GameOfDrones.Core.Domain.Base;
 
 namespace GameOfDrones.Business.ApplicationServices.Base
 {
@@ -25,9 +25,10 @@ namespace GameOfDrones.Business.ApplicationServices.Base
         /// </summary>
         /// <param name="repository">The <see cref="IBaseRepository{TEntity,TKey}"/> for accessing to the
         /// functionalities of the DataAceess layer.</param>
-        protected BaseApplicationService(IRepository<TEntity, TKey> repository)
+        protected BaseApplicationService(IRepository<TEntity, TKey> repository, IUnitOfWork unitOfWork)
         {
             this.Repository = repository;
+            this.UnitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -43,6 +44,11 @@ namespace GameOfDrones.Business.ApplicationServices.Base
         /// Gets or Sets the Repository for handling the entity object
         /// </summary>
         public IRepository<TEntity, TKey> Repository { get; set; }
+
+        /// <summary>
+        /// Gets or sets the UnitOfWork of the app
+        /// </summary>
+        public IUnitOfWork UnitOfWork { get; set; }
 
 
         /// <summary>
@@ -104,7 +110,7 @@ namespace GameOfDrones.Business.ApplicationServices.Base
 
         public Task<int> SaveChangesAsync()
         {
-            return this.Repository.SaveChangesAsync();
+            return this.UnitOfWork.SaveChangesAsync();
         }
 
 
