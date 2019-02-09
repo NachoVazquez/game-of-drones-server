@@ -18,11 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Config\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GameOfDrones.Business\GameOfDrones.Business.csproj" />
     <ProjectReference Include="..\GameOfDrones.Core.Abstractions\GameOfDrones.Core.Abstractions.csproj" />
     <ProjectReference Include="..\GameOfDrones.Core.Domain\GameOfDrones.Core.Domain.csproj" />
