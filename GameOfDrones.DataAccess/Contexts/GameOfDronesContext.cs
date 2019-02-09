@@ -14,19 +14,20 @@ namespace GameOfDrones.DataAccess.Contexts
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Player>();
+
+
 
             builder.Entity<Game>()
                .HasOne(g => g.Player1)
                .WithMany(p => p.GamesAsPlayer1)
                .HasForeignKey(g => g.Player1Id)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<Game>()
                .HasOne(g => g.Player2)
                .WithMany(p => p.GamesAsPlayer2)
                .HasForeignKey(g => g.Player2Id)
-               .OnDelete(DeleteBehavior.Cascade);
+               .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.Entity<Round>()
             .HasOne(r => r.Game)
@@ -45,6 +46,10 @@ namespace GameOfDrones.DataAccess.Contexts
             builder.Entity<Round>()
                .Property(c => c.WinnerMove)
                .HasConversion<int>();
+
+            builder.Entity<Player>()
+              .HasIndex(p => p.UserName)
+              .IsUnique();
         }
 
         public DbSet<Player> Players { get; set; }
