@@ -148,5 +148,16 @@ namespace GameOfDrones.Core.Abstractions.DataAccess
         /// <param name="filter">The predicate to be applied for each element in the Table</param>
         /// <returns><value>True</value> if any element satisfies the condition; otherwise, false</returns>
         Task<bool> ExistsAsync(Func<TEntity, bool> filter);
+
+        /// <summary>
+        /// Executes a raw query to the underlying store asynchronously
+        /// </summary>
+        /// <typeparam name="TResult">The type of the entities returned by the query</typeparam>
+        /// <param name="query">The query to execute</param>
+        /// <param name="queryParams">The query parameters</param>
+        /// <returns>A collection of elements returned by the query</returns>
+        Task<ICollection<TResult>> RawQueryAsync<TResult>(string query, object queryParams = null);
+
+        Task<TResult> QueryFirstAsync<TResult>(string query, object queryParams = null);
     }
 }

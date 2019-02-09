@@ -38,19 +38,16 @@ namespace GameOfDrones.DataAccess.Repositories
         /// <summary>
         /// Gets the Actual DBContext
         /// </summary>
-        public DbContext DbContext { get; }
-
-        protected IUnitOfWork UnitOfWork { get; }
+        public DbContext DbContext { get; }        
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseRepository{TEntity, TKey}"/> class.
         /// </summary>
         /// <param name="dbContext">The implementation of <see cref="DbContext"/></param>
-        protected BaseRepository(GameOfDronesContext dbContext, IUnitOfWork unitOfWork)
+        protected BaseRepository(GameOfDronesContext dbContext)
         {
             DbContext = dbContext;
-            this.Entities = this.DbContext.Set<TEntity>();
-            UnitOfWork = unitOfWork;
+            this.Entities = this.DbContext.Set<TEntity>();          
         }
 
         /// <summary>
@@ -342,6 +339,44 @@ namespace GameOfDrones.DataAccess.Repositories
 
             await Task.Factory.StartNew(() => { this.Entities.UpdateRange(objs); });
             return objs;
+        }
+
+        public IDbConnection OpenConnection(out bool closeManually)
+        {
+            var conn = DbContext.Database.GetDbConnection();
+            closeManually = false;
+
+            // Not sure here, should assume always opened??
+            if (conn.State == ConnectionState.Open) return conn;
+
+            conn.Open();
+            closeManually = true;
+
+            return conn;
+        }
+
+        public async Task<ICollection<TResult>> RawQueryAsync<TResult>(string query, object queryParams = null)
+        {
+            var connection = OpenConnection(out bool closeConnection);
+            var queryResult = await connection.QueryAsync<TResult>(query, queryParams);
+            if (closeConnection)
+            {
+                connection.Close();
+            }
+
+            return queryResult.ToList();
+        }
+
+        public async Task<TResult> QueryFirstAsync<TResult>(string query, object queryParams = null)
+        {
+            var connection = OpenConnection(out bool closeConnection);
+            var queryResult = await connection.QueryFirstAsync<TResult>(query, queryParams);
+            if (closeConnection)
+            {
+                connection.Close();
+            }
+
+            return queryResult;
         }
 
 
