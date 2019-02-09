@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using GameOfDrones.Core.Abstractions.Business;
+using GameOfDrones.Core.Abstractions.DataAccess;
 using GameOfDrones.Core.Domain.Base;
+using GameOfDrones.DataAccess.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameOfDrones.Controllers
@@ -32,10 +34,16 @@ namespace GameOfDrones.Controllers
         /// </summary>
         protected IMapper Mapper { get; set; }
 
-        public BaseApiController(TApplicationService appService, IMapper mapper)
+        /// <summary>
+        ///  An <see cref="IUnitOfWork"/> instance.
+        /// </summary>
+        protected IUnitOfWork UnitOfWork { get; set; }
+
+        public BaseApiController(TApplicationService appService, IMapper mapper, IUnitOfWork unitOfWork)
         {
             ApplicationService = appService;
             Mapper = mapper;
+            UnitOfWork = unitOfWork;
         }
 
 
