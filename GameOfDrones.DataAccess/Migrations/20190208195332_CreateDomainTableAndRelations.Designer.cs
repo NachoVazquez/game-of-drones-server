@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameOfDrones.DataAccess.Migrations
 {
     [DbContext(typeof(GameOfDronesContext))]
-    [Migration("20190208141247_AddGameEntities")]
-    partial class AddGameEntities
+    [Migration("20190208195332_CreateDomainTableAndRelations")]
+    partial class CreateDomainTableAndRelations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,11 +31,11 @@ namespace GameOfDrones.DataAccess.Migrations
 
                     b.Property<DateTime>("ModifiedAt");
 
-                    b.Property<int>("Player1Id");
+                    b.Property<int?>("Player1Id");
 
                     b.Property<long>("Player1RoundsWon");
 
-                    b.Property<int>("Player2Id");
+                    b.Property<int?>("Player2Id");
 
                     b.Property<long>("Player2RoundsWon");
 
@@ -64,9 +64,13 @@ namespace GameOfDrones.DataAccess.Migrations
 
                     b.Property<long>("RoundsWon");
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("Players");
                 });
@@ -100,13 +104,11 @@ namespace GameOfDrones.DataAccess.Migrations
                 {
                     b.HasOne("GameOfDrones.Core.Domain.Models.Player", "Player1")
                         .WithMany("GamesAsPlayer1")
-                        .HasForeignKey("Player1Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Player1Id");
 
                     b.HasOne("GameOfDrones.Core.Domain.Models.Player", "Player2")
                         .WithMany("GamesAsPlayer2")
-                        .HasForeignKey("Player2Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Player2Id");
                 });
 
             modelBuilder.Entity("GameOfDrones.Core.Domain.Models.Round", b =>

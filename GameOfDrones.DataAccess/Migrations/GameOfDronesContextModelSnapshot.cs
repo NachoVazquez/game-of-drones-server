@@ -29,11 +29,11 @@ namespace GameOfDrones.DataAccess.Migrations
 
                     b.Property<DateTime>("ModifiedAt");
 
-                    b.Property<int>("Player1Id");
+                    b.Property<int?>("Player1Id");
 
                     b.Property<long>("Player1RoundsWon");
 
-                    b.Property<int>("Player2Id");
+                    b.Property<int?>("Player2Id");
 
                     b.Property<long>("Player2RoundsWon");
 
@@ -62,9 +62,13 @@ namespace GameOfDrones.DataAccess.Migrations
 
                     b.Property<long>("RoundsWon");
 
-                    b.Property<string>("UserName");
+                    b.Property<string>("UserName")
+                        .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("Players");
                 });
@@ -98,13 +102,11 @@ namespace GameOfDrones.DataAccess.Migrations
                 {
                     b.HasOne("GameOfDrones.Core.Domain.Models.Player", "Player1")
                         .WithMany("GamesAsPlayer1")
-                        .HasForeignKey("Player1Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Player1Id");
 
                     b.HasOne("GameOfDrones.Core.Domain.Models.Player", "Player2")
                         .WithMany("GamesAsPlayer2")
-                        .HasForeignKey("Player2Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Player2Id");
                 });
 
             modelBuilder.Entity("GameOfDrones.Core.Domain.Models.Round", b =>
