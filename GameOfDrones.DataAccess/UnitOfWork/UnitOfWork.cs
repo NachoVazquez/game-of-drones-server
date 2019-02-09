@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
+﻿using Dapper;
 using GameOfDrones.Core.Abstractions.DataAccess;
 using GameOfDrones.DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GameOfDrones.DataAccess.UnitOfWork
 {
@@ -17,18 +14,27 @@ namespace GameOfDrones.DataAccess.UnitOfWork
     /// </summary>
     public class SqlUnitOfWork : IUnitOfWork
     {
+        public IGameRepository GameRepository { get; set; }
+
+        public IPlayerRepository PlayerRepository { get; set; }
+
+
+
         /// <summary>
         /// Constructor for testing purposes
         /// </summary>
         /// <param name="dbContext"></param>
-        public SqlUnitOfWork(GameOfDronesContext dbContext)
+        public SqlUnitOfWork(GameOfDronesContext dbContext, IGameRepository gameRepository, IPlayerRepository playerRepository)
         {
             DbContext = dbContext;
+            GameRepository = gameRepository;
+            PlayerRepository = playerRepository;
         }
 
         public GameOfDronesContext DbContext { get; set; }
 
         protected string ConnectionStringName { get; set; }
+
 
         public IDbConnection OpenConnection(out bool closeManually)
         {
