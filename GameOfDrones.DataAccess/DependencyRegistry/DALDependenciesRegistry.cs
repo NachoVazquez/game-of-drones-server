@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GameOfDrones.Core.Abstractions.DataAccess;
+﻿using GameOfDrones.Core.Abstractions.DataAccess;
 using GameOfDrones.DataAccess.Contexts;
 using GameOfDrones.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +8,7 @@ namespace GameOfDrones.DataAccess.DependencyRegistry
 {
     /// <summary>
     ///     Contains the functionalities to add the services
-    ///     that are implemented in the DataAcces layer.
+    ///     that are implemented in the DataAccess layer.
     /// </summary>   
     public static class ServiceCollectionExtension
     {
@@ -23,6 +20,9 @@ namespace GameOfDrones.DataAccess.DependencyRegistry
             service.AddScoped<ISqlDbContext, GameOfDronesContext>();
 
             service.AddScoped<IGameRepository, GameRepository>();
+            service.AddScoped<IRoundRepository, RoundRepository>();
+            service.AddScoped<IPlayerRepository, PlayerRepository>();
+
         }
     }
 }
