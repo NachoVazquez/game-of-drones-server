@@ -14,6 +14,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
 using System.Reflection;
+using GameOfDrones.Config;
+using Newtonsoft.Json.Serialization;
 using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace GameOfDrones
@@ -30,10 +32,7 @@ namespace GameOfDrones
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var autoMapperConfiguration = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new MapperConfigurationExpression());
-            });
+            var autoMapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile(new AutoMapperConfig()); });
 
             var mapper = autoMapperConfiguration.CreateMapper();
 
@@ -41,6 +40,7 @@ namespace GameOfDrones
 
             services.AddDbContext<GameOfDronesContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
 
             #region SET CORS
 
@@ -67,9 +67,7 @@ namespace GameOfDrones
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info { Title = "GameOfDrones Api", Version = "v1" }); });
-
-
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new Info {Title = "GameOfDrones Api", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
