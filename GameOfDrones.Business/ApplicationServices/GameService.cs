@@ -11,6 +11,7 @@ using Serilog.Core;
 
 namespace GameOfDrones.Business.ApplicationServices
 {
+    /// <inheritdoc cref="IGameService" />
     public class GameService : BaseApplicationService<Game, int>, IGameService
     {
         public IPlayerRepository PlayerRepository { get; set; }
@@ -29,6 +30,7 @@ namespace GameOfDrones.Business.ApplicationServices
             this.Logger = Log.ForContext<GameService>();
         }
 
+        /// <inheritdoc />
         public async Task<Game> CreateGameFromPlayerNamesAsync(string player1Name, string player2Name,
             int roundsToWin = 3)
         {
@@ -90,6 +92,7 @@ namespace GameOfDrones.Business.ApplicationServices
             return createdGame;
         }
 
+        /// <inheritdoc />
         public async Task<Game> CreateRoundAsync(Round roundToCreate)
         {
             if (roundToCreate.Player1Move == roundToCreate.Player2Move)
@@ -148,10 +151,12 @@ namespace GameOfDrones.Business.ApplicationServices
             return res;
         }
 
+        /// <inheritdoc />
         public async Task<Game> GetGameWithPlayersByIdAsync(int id)
         {
             return await GameRepository.GetGameWithPlayersByIdAsync(id);
         }
+
 
         private bool IsPlayer1RoundWinner(Round roundToCreate)
         {
