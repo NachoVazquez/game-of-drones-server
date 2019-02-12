@@ -12,13 +12,15 @@ namespace GameOfDrones.DataAccess.Repositories
         {
         }
 
-        public async Task<bool> ExistByUsernameAsync(string userName) => await this.Entities.AnyAsync(ent => ent.UserName.Equals(userName));
+        public async Task<bool> ExistByUsernameAsync(string userName) =>
+            await this.Entities.AnyAsync(ent => ent.UserName.Equals(userName));
+
         public async Task<Player> FindByUsernameAsync(string userName)
         {
             var query = $@"SELECT *
-FROM Users
-WHERE UserName = {userName}";
-            return await QueryFirstAsync<Player>(query);
+FROM Players
+WHERE UserName = '{userName}'";
+            return await QueryFirstOrDefaultAsync<Player>(query);
         }
     }
 }
