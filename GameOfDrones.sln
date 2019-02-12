@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfDrones", "GameOfDrones\GameOfDrones.csproj", "{8AFD048F-B0BD-4EB1-8391-BC8B99FFAFFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfDrones.Business", "GameOfDrones.Business\GameOfDrones.Business.csproj", "{37578B14-ACE3-44CD-AF3C-CBB9F75960B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfDrones.Business", "GameOfDrones.Business\GameOfDrones.Business.csproj", "{37578B14-ACE3-44CD-AF3C-CBB9F75960B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfDrones.DataAccess", "GameOfDrones.DataAccess\GameOfDrones.DataAccess.csproj", "{D8208D79-2D21-4D65-87CF-E8C3B0A4E9EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfDrones.DataAccess", "GameOfDrones.DataAccess\GameOfDrones.DataAccess.csproj", "{D8208D79-2D21-4D65-87CF-E8C3B0A4E9EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfDrones.Core.Domain", "GameOfDrones.Core.Domain\GameOfDrones.Core.Domain.csproj", "{1475B985-8F96-422E-9DCE-47CA1F265DF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfDrones.Core.Domain", "GameOfDrones.Core.Domain\GameOfDrones.Core.Domain.csproj", "{1475B985-8F96-422E-9DCE-47CA1F265DF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfDrones.Core.Abstractions", "GameOfDrones.Core.Abstractions\GameOfDrones.Core.Abstractions.csproj", "{55145BCB-DFCC-466A-9A4D-7B2D103922DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameOfDrones.Core.Abstractions", "GameOfDrones.Core.Abstractions\GameOfDrones.Core.Abstractions.csproj", "{55145BCB-DFCC-466A-9A4D-7B2D103922DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
