@@ -1,14 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using GameOfDrones.Core.Abstractions.Business;
+using GameOfDrones.Core.Abstractions.DataAccess;
+using GameOfDrones.Core.Domain.Base;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using GameOfDrones.Core.Abstractions.Business;
-using GameOfDrones.Core.Abstractions.DataAccess;
-using GameOfDrones.Core.Domain.Base;
-using GameOfDrones.DataAccess.UnitOfWork;
-using Microsoft.AspNetCore.Mvc;
 
 namespace GameOfDrones.Controllers
 {
@@ -24,6 +23,9 @@ namespace GameOfDrones.Controllers
         where TApplicationService : IApplicationService<TEntity, TKey>
         where TEntity : Entity<TKey>
     {
+        public static readonly string ServerErrorMessage =
+            "Upss! Something went wrong, our team is working on this problem";
+
         /// <summary>
         ///     The appService for the current controller.
         /// </summary>
@@ -71,9 +73,9 @@ namespace GameOfDrones.Controllers
         /// <response code="200">When the entity is found by its id</response>
         /// <response code="404">When the entity couldn't be found</response>
         [HttpGet("{id}")]
-        public virtual async Task<IActionResult> Get(TKey objectId)
+        public virtual async Task<IActionResult> Get(TKey id)
         {
-            var result = await ApplicationService.SingleOrDefaultAsync(objectId);
+            var result = await ApplicationService.SingleOrDefaultAsync(id);
 
             if (result == null)
                 return NotFound();

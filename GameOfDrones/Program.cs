@@ -17,11 +17,12 @@ namespace GameOfDrones
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Warning()
+                .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.RollingFile(Path.Combine("logs", "log-{Date}.txt"))
+                .WriteTo.RollingFile(Path.Combine("logs", "log-{HalfHour}.txt"))
+                //.WriteTo.MSSqlServer()
                 .CreateLogger();
 
             try
