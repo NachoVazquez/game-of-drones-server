@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GameOfDrones.Business.ApplicationServices;
+using GameOfDrones.Core.Abstractions.Business;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace GameOfDrones.Business.DependencyRegistry
 {
     /// <summary>
     ///     Contains the functionalities to add the services
-    ///     that are implemented in the DataAcces layer.
+    ///     that are implemented in the Business Logic layer.
     /// </summary>
     /// <remarks>
     ///     When a service for the DI will be used, this won't
@@ -17,6 +19,7 @@ namespace GameOfDrones.Business.DependencyRegistry
     {
         public static void AddBusinessServices(this IServiceCollection service)
         {
+            service.AddScoped<IGameService, GameService>();
         }
     }
 }
