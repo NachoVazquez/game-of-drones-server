@@ -38,7 +38,7 @@ namespace GameOfDrones.DataAccess.Repositories
         /// <summary>
         /// Gets the Actual DBContext
         /// </summary>
-        public DbContext DbContext { get; }        
+        public DbContext DbContext { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseRepository{TEntity, TKey}"/> class.
@@ -47,7 +47,7 @@ namespace GameOfDrones.DataAccess.Repositories
         protected BaseRepository(GameOfDronesContext dbContext)
         {
             DbContext = dbContext;
-            this.Entities = this.DbContext.Set<TEntity>();          
+            this.Entities = this.DbContext.Set<TEntity>();
         }
 
         /// <summary>
@@ -367,10 +367,10 @@ namespace GameOfDrones.DataAccess.Repositories
             return queryResult.ToList();
         }
 
-        public async Task<TResult> QueryFirstAsync<TResult>(string query, object queryParams = null)
+        public async Task<TResult> QueryFirstOrDefaultAsync<TResult>(string query, object queryParams = null)
         {
             var connection = OpenConnection(out bool closeConnection);
-            var queryResult = await connection.QueryFirstAsync<TResult>(query, queryParams);
+            var queryResult = await connection.QueryFirstOrDefaultAsync<TResult>(query, queryParams);
             if (closeConnection)
             {
                 connection.Close();

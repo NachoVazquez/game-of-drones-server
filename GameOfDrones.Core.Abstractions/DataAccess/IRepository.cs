@@ -158,6 +158,6 @@ namespace GameOfDrones.Core.Abstractions.DataAccess
         /// <returns>A collection of elements returned by the query</returns>
         Task<ICollection<TResult>> RawQueryAsync<TResult>(string query, object queryParams = null);
 
-        Task<TResult> QueryFirstAsync<TResult>(string query, object queryParams = null);
+        Task<TResult> QueryFirstOrDefaultAsync<TResult>(string query, object queryParams = null);
     }
 }
