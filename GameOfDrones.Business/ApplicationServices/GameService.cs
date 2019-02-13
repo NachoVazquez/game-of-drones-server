@@ -135,6 +135,7 @@ namespace GameOfDrones.Business.ApplicationServices
             if (game.RoundsToWin == (isPlayer1Winner ? game.Player1RoundsWon : game.Player2RoundsWon))
             {
                 winner.GamesWon++;
+                looser.RoundsLost++;
             }
 
             try
