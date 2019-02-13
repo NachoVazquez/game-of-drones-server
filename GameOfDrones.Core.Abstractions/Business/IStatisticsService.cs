@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using GameOfDrones.Core.Domain.Models;
 
 namespace GameOfDrones.Core.Abstractions.Business
 {
@@ -10,5 +11,6 @@ namespace GameOfDrones.Core.Abstractions.Business
         Task<long?> GetRegisteredPlayersAsync();
         Task<long?> GetGamesPlayed();
         Task<long?> GetRoundsPlayed();
+        Task<Player> GetPlayerByUserNameAsync(string playerName);
     }
 }

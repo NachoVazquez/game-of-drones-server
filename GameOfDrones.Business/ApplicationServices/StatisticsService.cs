@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameOfDrones.Core.Abstractions.Business;
 using GameOfDrones.Core.Abstractions.DataAccess;
+using GameOfDrones.Core.Domain.Models;
 
 namespace GameOfDrones.Business.ApplicationServices
 {
@@ -56,6 +57,11 @@ namespace GameOfDrones.Business.ApplicationServices
             {
                 return null;
             }
+        }
+
+        public async Task<Player> GetPlayerByUserNameAsync(string playerName)
+        {
+            return await PlayersRepository.FindByUsernameAsync(playerName);
         }
     }
 }
