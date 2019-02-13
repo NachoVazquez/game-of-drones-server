@@ -2,22 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using GameOfDrones.Core.Abstractions.Business;
+using GameOfDrones.Core.Domain.Models;
+using GameOfDrones.Models.Player;
 using GameOfDrones.Models.Statistics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameOfDrones.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Produces("application/json")]
+    [Route("api/v1/[controller]/[action]")]
     public class StatisticsController : ControllerBase
     {
         private IStatisticsService StatisticsService { get; }
+        private IMapper Mapper { get; }
 
-        public StatisticsController(IStatisticsService statisticsService)
+        public StatisticsController(IStatisticsService statisticsService, IMapper mapper)
         {
             StatisticsService = statisticsService;
+            Mapper = mapper;
         }
 
         [HttpGet]
@@ -48,6 +53,17 @@ namespace GameOfDrones.Controllers
                 GamesPlayed = gamesPlayed.Value, RegisteredPlayers = registeredPlayers.Value,
                 RoundsPlayed = roundsPlayed.Value
             });
+        }
+
+        [HttpGet("{playerName}")]
+        public async Task<IActionResult> GetPlayerStatistics([FromRoute] string playerName)
+        {
+            var player = await StatisticsService.GetPlayerByUserNameAsync(playerName);
+
+            if (player == null)
+                return Ok(null);
+
+            return Ok(Mapper.Map<Player, PlayerStatisticsViewModel>(player));
         }
     }
 }
