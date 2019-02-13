@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace GameOfDrones.Core.Abstractions.DataAccess
 {
-    public interface IPlayerRepository: IRepository<Player, int>
+    public interface IPlayerRepository : IRepository<Player, int>
     {
         Task<bool> ExistByUsernameAsync(string userName);
 
         Task<Player> FindByUsernameAsync(string userName);
+
+        Task<long> GetPlayersRegisteredAsync();
     }
 }

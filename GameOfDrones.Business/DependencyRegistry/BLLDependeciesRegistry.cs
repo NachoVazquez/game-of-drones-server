@@ -20,6 +20,7 @@ namespace GameOfDrones.Business.DependencyRegistry
         public static void AddBusinessServices(this IServiceCollection service)
         {
             service.AddScoped<IGameService, GameService>();
+            service.AddScoped<IStatisticsService, StatisticsService>();
         }
     }
 }

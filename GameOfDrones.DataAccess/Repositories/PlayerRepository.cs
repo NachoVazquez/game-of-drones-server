@@ -22,5 +22,13 @@ FROM Players
 WHERE UserName = '{userName}'";
             return await QueryFirstOrDefaultAsync<Player>(query);
         }
+
+        public async Task<long> GetPlayersRegisteredAsync()
+        {
+            var query = $@"SELECT COUNT(Id)
+FROM Players;";
+
+            return await QueryFirstOrDefaultAsync<long>(query);
+        }
     }
 }

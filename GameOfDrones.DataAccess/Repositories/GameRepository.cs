@@ -60,5 +60,12 @@ WHERE Id = {game.Player2Id}";
 
             return game;
         }
+
+        public async Task<long> GetGamesPlayedAsync()
+        {
+            var query = $@"SELECT COUNT(Id)
+FROM Games";
+            return await QueryFirstOrDefaultAsync<long>(query);
+        }
     }
 }

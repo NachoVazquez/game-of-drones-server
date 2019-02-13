@@ -7,5 +7,6 @@ namespace GameOfDrones.Core.Abstractions.DataAccess
     {
         Task<Game> GetGameWithPlayersByIdAsync(int id);
 
+        Task<long> GetGamesPlayedAsync();
     }
 }
