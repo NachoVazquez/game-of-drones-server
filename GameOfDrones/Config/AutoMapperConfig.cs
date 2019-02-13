@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Dapper;
 using GameOfDrones.Core.Domain.Models;
 using GameOfDrones.Models.Game;
+using GameOfDrones.Models.Player;
 using GameOfDrones.Models.Round;
 
 namespace GameOfDrones.Config
@@ -9,8 +11,8 @@ namespace GameOfDrones.Config
     {
         public AutoMapperConfig()
         {
-
             #region Game configs
+
             this.CreateMap<Game, GameIndexViewModel>().AfterMap((src, dest) =>
             {
                 dest.Player1Name = src.Player1?.UserName;
@@ -20,10 +22,6 @@ namespace GameOfDrones.Config
             this.CreateMap<Game, GameBaseViewModel>().ReverseMap();
             this.CreateMap<Game, GameCreateViewModel>().ReverseMap();
             this.CreateMap<Game, GameEditViewModel>().ReverseMap();
-
-
-
-
 
             #endregion
 
@@ -35,10 +33,14 @@ namespace GameOfDrones.Config
 
             #endregion
 
+            #region Player
 
+            this.CreateMap<Player, PlayerStatisticsViewModel>().AfterMap((src, dst) =>
+            {
+                dst.PlayerName = src.UserName;
+            }).ReverseMap();
 
-
-
+            #endregion
         }
     }
 }
